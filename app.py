@@ -8,6 +8,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from nasdaq.analytics import clean_prices, price_matrix, daily_returns, metrics, cluster_stocks, common_window, complete_symbols
 from nasdaq.query import parse_query
+from nasdaq.query_engine import execute_query
 
 ROOT = Path(__file__).parent
 st.set_page_config(page_title='Nasdaq Lens · 纳斯达克研究台', page_icon='↗', layout='wide')
@@ -28,7 +29,7 @@ def chart(fig, key):
                       transition_duration=0)
     fig.update_xaxes(gridcolor='#E9ECF1',zerolinecolor='#D5DAE2',showline=False)
     fig.update_yaxes(gridcolor='#E9ECF1',zerolinecolor='#D5DAE2',showline=False)
-    labels={'total_return':'区间收益率','annual_volatility':'年化波动率','max_drawdown':'最大回撤','symbol':'股票代码','date':'交易日期','volume':'成交量','value':'指标值','variable':'指标'}
+    labels={'total_return':'区间收益率','annual_volatility':'年化波动率','max_drawdown':'最大回撤','symbol':'股票代码','date':'交易日期','volume':'成交量','value':'指标值','variable':'指标','correlation':'日收益率相关系数'}
     for axis in ['xaxis','yaxis']:
         title=getattr(fig.layout,axis).title.text
         if title in labels:getattr(fig.layout,axis).title.text=labels[title]
@@ -166,44 +167,46 @@ elif page=='风险聚类':
     chart(px.imshow(corr,zmin=-1,zmax=1,color_continuous_scale='RdBu',aspect='auto',title='日收益率相关性 · 至少20组有效观测'),'correlation')
 elif page=='智能问数':
     st.subheader('向数据提问')
-    st.caption('规则解析版 · 无需API密钥。支持样本股票、中文别名、明确年份/日期；不支持的问题会明确提示。未写时间时使用侧栏范围，未写股票时使用侧栏股票池。')
+    st.caption(f'无需API密钥 · 相对时间以侧栏结束日 {dates[1]} 为基准。支持明确日期、近一年、近三个月和今年/去年；未写股票时使用侧栏候选池。')
     year=all_data.date.max().year
-    other=available[min(1,len(available)-1)]
-    examples=[f'{year}年收益最高的前5只股票',f'比较{available[0]}和{other}在{year}年的累计收益',f'{year}年最大回撤最小的前5只股票',f'展示{available[0]}在{year}年月度收益',f'比较{available[0]}和{other}在{year}年的相关性']
+    examples=[f'{year}年收益最高的前5只股票','比较苹果和微软近一年的累计收益','与苹果近一年相关性最高的前5只股票','近三个月最大回撤最小的前5只股票',f'展示苹果{year}年月度收益','比较苹果和微软近三个月的波动率']
     example=st.selectbox('示例问题',examples)
-    question=st.text_input('你的问题',value=example)
-    if st.button('分析问题',type='primary'):
+    context_key=(demo,path.stat().st_mtime_ns,tuple(selected),str(dates),full_only)
+    if st.session_state.get('query_context')!=context_key:
+        st.session_state.pop('query_result',None)
+        st.session_state.pop('query_error',None)
+        st.session_state.query_context=context_key
+    with st.form('query_form'):
+        question=st.text_input('你的问题',value=example)
+        submit=st.form_submit_button('分析问题',type='primary')
+    if submit:
+        st.session_state.pop('query_result',None)
+        st.session_state.pop('query_error',None)
         try:
             query=parse_query(question,universe,*dates)
-            if query.start<all_data.date.min()-pd.Timedelta(days=7) or query.end>all_data.date.max()+pd.Timedelta(days=7):
-                raise ValueError('请求超出本地行情覆盖范围，请缩小日期范围或先下载对应数据。')
-            chosen=query.symbols or list(stats.index)
-            if set(chosen)-set(available):raise ValueError('请求股票没有本地行情。')
-            subset=all_data[all_data.symbol.isin(chosen)&all_data.date.between(query.start,query.end)]
-            if set(chosen)-set(subset.symbol):raise ValueError('部分股票在请求区间没有行情。')
-            subset,qs,qe=common_window(subset)
-            if (qe-qs).days<(query.end-query.start).days-10:
-                st.warning(f'部分股票历史不足，共同窗口缩小至{qs:%Y-%m-%d}—{qe:%Y-%m-%d}。')
-            qm=metrics(subset);qp=price_matrix(subset)
-            if qm.empty:raise ValueError('请求区间至少需要3个交易日。')
-            st.json({'类型':query.intent,'股票':chosen,'请求开始':str(query.start.date()),'请求结束':str(query.end.date()),'实际开始':str(qs.date()),'实际结束':str(qe.date()),'排序字段':query.metric})
-            if query.intent=='ranking':
-                result=qm.sort_values(query.metric,ascending=query.ascending).head(query.limit)
-                chart(px.bar(result.reset_index(),x='symbol',y=query.metric,title='问数结果 · '+query.metric),'query_ranking')
-                st.dataframe(result)
-            elif query.intent=='correlation':
-                result=daily_returns(qp).corr(min_periods=20)
-                chart(px.imshow(result,zmin=-1,zmax=1,color_continuous_scale='RdBu',title='所选股票收益率相关性'),'query_correlation')
-                st.dataframe(result)
-            elif query.intent=='monthly':
-                result=qp.resample('ME').last().pct_change(fill_method=None).iloc[1:]
-                chart(px.imshow(result.T,color_continuous_scale='RdBu',color_continuous_midpoint=0,text_auto='.1%',aspect='auto',title='月度收益'),'query_monthly')
-                st.dataframe(result)
-            else:
-                result=qp/qp.iloc[0]-1
-                wide_line(result,'累计收益比较','query_trend');st.dataframe(qm)
-            st.download_button('下载本次结果CSV',result.to_csv().encode('utf-8-sig'),'query_result.csv','text/csv')
-        except (ValueError,KeyError) as exc:st.error(str(exc))
+            st.session_state.query_result=execute_query(query,all_data,selected,full_only)
+        except (ValueError,KeyError) as exc:
+            st.session_state.query_error=str(exc)
+    if st.session_state.get('query_error'):st.error(st.session_state.query_error)
+    result=st.session_state.get('query_result')
+    if result is not None:
+        st.write(result.explanation)
+        for note in result.notes:st.caption(note)
+        with st.expander('查看解析条件和计算口径'):
+            st.json(result.context)
+        table=result.table
+        if result.kind=='ranking':
+            chart(px.bar(table.reset_index(),x='symbol',y=result.context['metric'],title='问数结果 · 指标排名'),'query_ranking')
+        elif result.kind=='correlation_ranking':
+            chart(px.bar(table.reset_index(),x='symbol',y='correlation',title='与参考股票的相关性排名'),'query_corr_ranking')
+        elif result.kind=='correlation':
+            chart(px.imshow(table,zmin=-1,zmax=1,color_continuous_scale='RdBu',title='日收益率相关性'),'query_correlation')
+        elif result.kind=='monthly':
+            chart(px.imshow(table.T,color_continuous_scale='RdBu',color_continuous_midpoint=0,text_auto='.1%',aspect='auto',title='月度收益'),'query_monthly')
+        else:wide_line(table,'问数结果 · 趋势比较','query_trend')
+        st.dataframe(table,width='stretch')
+        st.download_button('下载本次结果CSV',table.to_csv().encode('utf-8-sig'),'query_result.csv','text/csv')
+
 else:
     st.subheader('数据来源与计算口径')
     if not demo:
@@ -220,7 +223,7 @@ else:
     st.markdown('''- 收益：复权收盘价末值/初值−1；波动率：日收益样本标准差×√252。
 - 回撤：复权价格/窗口内累计最高价−1，最大回撤取最小值；窗口起点之前的损失不计算。
 - 多股票比较采用共同起止窗口；缺失交易日不前向填充。相关性按成对有效观测计算。
-- 名单为明确的开发样本，非完整纳斯达克100，不代表各历史时点成分，存在样本选择偏差。
+- 研究股票池来自固定日期的完整官方快照，行情覆盖仍不完整；不代表各历史时点成分，存在样本选择偏差。演示模式单独使用公开历史样本。
 - 当前数据源与复权方式以本页来源清单为准；缓存默认不提交GitHub。
 - 项目用于课程研究，尚未加入实时行情、财报分析或生成式AI。''')
     st.download_button('导出当前分析指标',stats.to_csv().encode('utf-8-sig'),'analysis.csv','text/csv')

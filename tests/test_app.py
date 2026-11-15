@@ -33,7 +33,9 @@ def test_all_pages_and_query(app_path):
     at.button[0].click().run()
     assert not at.exception and not at.error
     assert len(at.get('plotly_chart'))==1
-    at.text_input[0].set_value('预测明天买什么').run()
+    at.run()
+    assert len(at.get('plotly_chart'))==1, 'Query result should persist across download/widget reruns'
+    at.text_input[0].set_value('预测明天买什么')
     at.button[0].click().run()
     assert len(at.error)==1 and not at.exception
 

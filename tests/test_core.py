@@ -37,7 +37,7 @@ def test_drawdown_order(universe):
     q=parse_query('最大回撤最小的前2只股票',universe,'2023-01-01','2025-12-31')
     assert q.metric=='max_drawdown' and not q.ascending and q.limit==2
 
-@pytest.mark.parametrize('question',['买什么能赚钱','最近一年收益最高','比较TSLA和AAPL','比较2025-01-01股票'])
+@pytest.mark.parametrize('question',['买什么能赚钱','最近一阵收益最高','比较TSLA和AAPL','比较2025-01-01股票'])
 def test_unsupported_questions(universe,question):
     with pytest.raises(ValueError):parse_query(question,universe,'2023-01-01','2025-12-31')
 
