@@ -12,7 +12,7 @@ from nasdaq.query import parse_query
 ROOT = Path(__file__).parent
 st.set_page_config(page_title='Nasdaq Lens · 纳斯达克研究台', page_icon='↗', layout='wide')
 st.markdown('<style>'+ (ROOT/'assets/theme.css').read_text(encoding='utf-8')+'</style>', unsafe_allow_html=True)
-PALETTE=['#EF454A','#F2B8BC','#8695AC','#B99076','#C1C7D2','#C87E8C']
+PALETTE=['#D83C43','#557A95','#A87936','#3F8276','#7C6B9A','#A75F79']
 px.defaults.color_discrete_sequence=PALETTE
 
 @st.cache_data
@@ -20,14 +20,14 @@ def load_data(path, mtime):
     return clean_prices(pd.read_csv(path))
 
 def chart(fig, key):
-    fig.update_layout(template='plotly_dark', font=dict(family='Microsoft YaHei, Arial', size=11,color='#929AA8'),
+    fig.update_layout(template='plotly_white', font=dict(family='Microsoft YaHei, Arial', size=11,color='#667080'),
                       margin=dict(l=18,r=18,t=60,b=28), height=355,
-                      title_font=dict(size=13,color='#EAECEF'),
-                      paper_bgcolor='#181A20',plot_bgcolor='#181A20',legend_title_text='',
-                      colorway=PALETTE,hoverlabel=dict(bgcolor='#282C35',font_color='#EAECEF'),
+                      title_font=dict(size=13,color='#202632'),
+                      paper_bgcolor='#FFFFFF',plot_bgcolor='#FFFFFF',legend_title_text='',
+                      colorway=PALETTE,hoverlabel=dict(bgcolor='#282C35',font_color='#202632'),
                       transition_duration=0)
-    fig.update_xaxes(gridcolor='#262A32',zerolinecolor='#373D47',showline=False)
-    fig.update_yaxes(gridcolor='#262A32',zerolinecolor='#373D47',showline=False)
+    fig.update_xaxes(gridcolor='#E9ECF1',zerolinecolor='#D5DAE2',showline=False)
+    fig.update_yaxes(gridcolor='#E9ECF1',zerolinecolor='#D5DAE2',showline=False)
     labels={'total_return':'区间收益率','annual_volatility':'年化波动率','max_drawdown':'最大回撤','symbol':'股票代码','date':'交易日期','volume':'成交量','value':'指标值','variable':'指标'}
     for axis in ['xaxis','yaxis']:
         title=getattr(fig.layout,axis).title.text
