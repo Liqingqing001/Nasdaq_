@@ -24,7 +24,7 @@ def chart(fig, key):
                       margin=dict(l=18,r=18,t=60,b=28), height=355,
                       title_font=dict(size=13,color='#202632'),
                       paper_bgcolor='#FFFFFF',plot_bgcolor='#FFFFFF',legend_title_text='',
-                      colorway=PALETTE,hoverlabel=dict(bgcolor='#282C35',font_color='#202632'),
+                      colorway=PALETTE,hoverlabel=dict(bgcolor='#FFFFFF',bordercolor='#D5DAE2',font_color='#202632',font_size=12),
                       transition_duration=0)
     fig.update_xaxes(gridcolor='#E9ECF1',zerolinecolor='#D5DAE2',showline=False)
     fig.update_yaxes(gridcolor='#E9ECF1',zerolinecolor='#D5DAE2',showline=False)
