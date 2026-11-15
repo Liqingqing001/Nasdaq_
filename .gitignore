@@ -11,3 +11,7 @@ data/download_errors.json
 data/*demo*.csv
 data/demo_manifest.json
 data/*.tmp
+submission/
+deliverables/
+
+.chart-data-*/
