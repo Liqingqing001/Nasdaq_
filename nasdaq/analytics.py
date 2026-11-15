@@ -12,11 +12,12 @@ def clean_prices(frame):
     if missing:
         raise ValueError('缺少字段：' + ', '.join(sorted(missing)))
     df = frame[REQUIRED].copy()
+    missing_symbol=df.symbol.isna()
     df['date'] = pd.to_datetime(df.date, errors='coerce').dt.normalize()
     df['symbol'] = df.symbol.astype(str).str.upper().str.strip()
     for col in REQUIRED[2:]:
         df[col] = pd.to_numeric(df[col], errors='coerce')
-    bad = (df[REQUIRED].isna().any(axis=1) | (df.close <= 0) | (df.adj_close <= 0)
+    bad = (missing_symbol | ~np.isfinite(df[REQUIRED[2:]]).all(axis=1) | df[REQUIRED].isna().any(axis=1) | (df.close <= 0) | (df.adj_close <= 0)
            | (df.open <= 0) | (df.low <= 0) | (df.volume < 0)
            | (df.high < df[['open', 'close', 'low']].max(axis=1))
            | (df.low > df[['open', 'close', 'high']].min(axis=1)) | df.symbol.eq(''))
@@ -51,6 +52,11 @@ def common_window(df):
     bounds = df.groupby('symbol').date.agg(['min', 'max'])
     start, end = bounds['min'].max(), bounds['max'].min()
     return df[df.date.between(start, end)], start, end
+
+def complete_symbols(df):
+    """Symbols covering every observed session, without filling absent history."""
+    calendar=set(df.date.unique())
+    return [s for s,g in df.groupby('symbol') if set(g.date.unique())==calendar]
 
 def cluster_stocks(stats, k):
     features = ['total_return', 'annual_volatility', 'max_drawdown']

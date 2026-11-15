@@ -1,0 +1,974 @@
+{
+  "provider": "Eastmoney public daily history",
+  "retrieved_at": "2026-11-15T05:57:31.216694+00:00",
+  "requested_start": "2023-01-01",
+  "requested_end_exclusive": "2026-01-01",
+  "security_coverage": 0.7029702970297029,
+  "quality": {
+    "invalid_rows": 0,
+    "duplicate_rows": 0,
+    "valid_rows": 49228
+  },
+  "limitations": [
+    "Fixed current snapshot viewed retrospectively; survivorship/selection bias",
+    "qfq return is provider-adjusted price return, not independently verified reinvested-dividend total return",
+    "Unavailable or short histories are disclosed, never backfilled from another ticker"
+  ],
+  "snapshot": {
+    "source_url": "https://www.nasdaq.com/docs/global-indexes/NDX",
+    "snapshot_date": "2026-11-02",
+    "retrieved_at": "2026-11-15T05:46:08.648071+00:00",
+    "source_sha256": "ef431b9196a4f2ae270b7c346a594884393df9a8a8306cf5baa905044b3b611e",
+    "securities": 101,
+    "companies": 100,
+    "sector_method": "Project-defined broad grouping; not official GICS/ICB or Nasdaq classification",
+    "scope": "Fixed snapshot retrospective sample; not historical constituent reconstruction"
+  },
+  "covered_securities": 71,
+  "expected_securities": 101,
+  "unavailable": [
+    "ADBE",
+    "ALNY",
+    "AMGN",
+    "AMZN",
+    "APP",
+    "ARM",
+    "ASML",
+    "BKNG",
+    "CDNS",
+    "CEG",
+    "CSCO",
+    "DASH",
+    "FAST",
+    "FER",
+    "FTNT",
+    "GEHC",
+    "GILD",
+    "HON",
+    "HONA",
+    "IDXX",
+    "INTC",
+    "INTU",
+    "ISRG",
+    "KDP",
+    "KLAC",
+    "LIN",
+    "LITE",
+    "LRCX",
+    "MAR",
+    "SPCX"
+  ],
+  "complete_securities": 63,
+  "coverage": [
+    {
+      "symbol": "ADBE",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "AMD",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ABNB",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ALNY",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "GOOGL",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "GOOG",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "AMZN",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "AEP",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "AMGN",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "ADI",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "AAPL",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "AMAT",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "APP",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "ARM",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "ASML",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "ALAB",
+      "rows": 448,
+      "first_date": "2024-03-20",
+      "last_date": "2025-12-31",
+      "missing_sessions": 304,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "ADSK",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ADP",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "AXON",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "BKR",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "BKNG",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "AVGO",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CDNS",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "CTAS",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CSCO",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "CCEP",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CMCSA",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CEG",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "CPRT",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CRWV",
+      "rows": 192,
+      "first_date": "2025-03-28",
+      "last_date": "2025-12-31",
+      "missing_sessions": 560,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "COST",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CRWD",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "CSX",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "DDOG",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "DXCM",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "FANG",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "DASH",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "EXC",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "FAST",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "FER",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "FTNT",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "GEHC",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "GILD",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "HONA",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "HON",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "IDXX",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "INTC",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "INTU",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "ISRG",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "KDP",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "KLAC",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "LRCX",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "LIN",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "LITE",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "MAR",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "MRVL",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MELI",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "META",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MCHP",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MU",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MSFT",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MRNA",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MDLZ",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MPWR",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MNST",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "NBIS",
+      "rows": 300,
+      "first_date": "2024-10-21",
+      "last_date": "2025-12-31",
+      "missing_sessions": 452,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "NFLX",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "NVDA",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "NXPI",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ORLY",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ODFL",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "PCAR",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "PLTR",
+      "rows": 274,
+      "first_date": "2024-11-26",
+      "last_date": "2025-12-31",
+      "missing_sessions": 478,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "PANW",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "PAYX",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "PYPL",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "PDD",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "PEP",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "QCOM",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "REGN",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "RKLB",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ROP",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "ROST",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "SNDK",
+      "rows": 216,
+      "first_date": "2025-02-24",
+      "last_date": "2025-12-31",
+      "missing_sessions": 536,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "STX",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "SHOP",
+      "rows": 191,
+      "first_date": "2025-03-31",
+      "last_date": "2025-12-31",
+      "missing_sessions": 561,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "SPCX",
+      "rows": 0,
+      "first_date": null,
+      "last_date": null,
+      "missing_sessions": 752,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "SBUX",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "MSTR",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "SNPS",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "TMUS",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "TTWO",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "TER",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "TSLA",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "TXN",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "TRI",
+      "rows": 215,
+      "first_date": "2025-02-25",
+      "last_date": "2025-12-31",
+      "missing_sessions": 537,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "VRTX",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "WMT",
+      "rows": 16,
+      "first_date": "2025-12-09",
+      "last_date": "2025-12-31",
+      "missing_sessions": 736,
+      "internal_missing_sessions": 0,
+      "complete_window": false
+    },
+    {
+      "symbol": "WDC",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "WDAY",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    },
+    {
+      "symbol": "XEL",
+      "rows": 752,
+      "first_date": "2023-01-03",
+      "last_date": "2025-12-31",
+      "missing_sessions": 0,
+      "internal_missing_sessions": 0,
+      "complete_window": true
+    }
+  ],
+  "research_csv_sha256": "be6761c4845745c27016a47c96bf3577a854b505bdf0f8274df6e915ece2d8df"
+}

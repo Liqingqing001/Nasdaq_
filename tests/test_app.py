@@ -45,3 +45,10 @@ def test_no_data(tmp_path):
     shutil.copy(root/'data/universe.csv',tmp_path/'data/universe.csv')
     at=AppTest.from_file(str(tmp_path/'app.py')).run()
     assert not at.exception and len(at.info)==1
+
+def test_research_manifest_hash_mismatch(app_path):
+    import json
+    (app_path.parent/'data/manifest.json').write_text(json.dumps({'sha256':'invalid'}),encoding='utf-8')
+    at=AppTest.from_file(str(app_path)).run()
+    assert not at.exception and len(at.error)==1
+    assert '校验不一致' in at.error[0].value

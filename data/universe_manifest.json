@@ -1,0 +1,10 @@
+{
+  "source_url": "https://www.nasdaq.com/docs/global-indexes/NDX",
+  "snapshot_date": "2026-11-02",
+  "retrieved_at": "2026-11-15T05:46:08.648071+00:00",
+  "source_sha256": "ef431b9196a4f2ae270b7c346a594884393df9a8a8306cf5baa905044b3b611e",
+  "securities": 101,
+  "companies": 100,
+  "sector_method": "Project-defined broad grouping; not official GICS/ICB or Nasdaq classification",
+  "scope": "Fixed snapshot retrospective sample; not historical constituent reconstruction"
+}
