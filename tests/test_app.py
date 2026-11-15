@@ -10,6 +10,7 @@ from streamlit.testing.v1 import AppTest
 def app_path(tmp_path):
     root=Path(__file__).resolve().parents[1]
     shutil.copy(root/'app.py',tmp_path/'app.py')
+    shutil.copytree(root/'assets',tmp_path/'assets')
     (tmp_path/'data').mkdir()
     shutil.copy(root/'data/universe.csv',tmp_path/'data/universe.csv')
     universe=pd.read_csv(root/'data/universe.csv')
@@ -39,6 +40,7 @@ def test_all_pages_and_query(app_path):
 def test_no_data(tmp_path):
     root=Path(__file__).resolve().parents[1]
     shutil.copy(root/'app.py',tmp_path/'app.py')
+    shutil.copytree(root/'assets',tmp_path/'assets')
     (tmp_path/'data').mkdir()
     shutil.copy(root/'data/universe.csv',tmp_path/'data/universe.csv')
     at=AppTest.from_file(str(tmp_path/'app.py')).run()

@@ -10,34 +10,37 @@ from nasdaq.query import parse_query
 
 ROOT = Path(__file__).parent
 st.set_page_config(page_title='Nasdaq Lens · 纳斯达克研究台', page_icon='↗', layout='wide')
-st.markdown('''<style>
-.block-container{padding-top:3.5rem;max-width:1480px} h1{letter-spacing:-1.5px}
-[data-testid="stMetric"]{background:white;border:1px solid #e3e9f3;padding:18px;border-radius:12px}
-[data-testid="stSidebar"]{border-right:1px solid #e3e9f3}
-</style>''', unsafe_allow_html=True)
+st.markdown('<style>'+ (ROOT/'assets/theme.css').read_text(encoding='utf-8')+'</style>', unsafe_allow_html=True)
+PALETTE=['#EF454A','#F2B8BC','#8695AC','#B99076','#C1C7D2','#C87E8C']
+px.defaults.color_discrete_sequence=PALETTE
 
 @st.cache_data
 def load_data(path, mtime):
     return clean_prices(pd.read_csv(path))
 
 def chart(fig, key):
-    fig.update_layout(template='plotly_white', font=dict(family='Microsoft YaHei, Arial', size=12),
-                      margin=dict(l=12,r=12,t=45,b=20), height=370,
-                      paper_bgcolor='white', plot_bgcolor='white', legend_title_text='')
+    fig.update_layout(template='plotly_dark', font=dict(family='Microsoft YaHei, Arial', size=11,color='#929AA8'),
+                      margin=dict(l=18,r=18,t=60,b=28), height=355,
+                      title_font=dict(size=13,color='#EAECEF'),
+                      paper_bgcolor='#181A20',plot_bgcolor='#181A20',legend_title_text='',
+                      colorway=PALETTE,hoverlabel=dict(bgcolor='#282C35',font_color='#EAECEF'),
+                      transition_duration=0)
+    fig.update_xaxes(gridcolor='#262A32',zerolinecolor='#373D47',showline=False)
+    fig.update_yaxes(gridcolor='#262A32',zerolinecolor='#373D47',showline=False)
     labels={'total_return':'区间收益率','annual_volatility':'年化波动率','max_drawdown':'最大回撤','symbol':'股票代码','date':'交易日期','volume':'成交量','value':'指标值','variable':'指标'}
     for axis in ['xaxis','yaxis']:
         title=getattr(fig.layout,axis).title.text
         if title in labels:getattr(fig.layout,axis).title.text=labels[title]
-    st.plotly_chart(fig, width='stretch', key=key)
+    st.plotly_chart(fig, width='stretch', key=key,config={'scrollZoom':False,'displaylogo':False,'displayModeBar':'hover','modeBarButtonsToRemove':['lasso2d','select2d']})
 
 def wide_line(frame, title, key, percent=True):
     fig=px.line(frame, title=title)
     if percent:fig.update_yaxes(tickformat='.0%')
     chart(fig,key)
 
-st.caption('NASDAQ LENS  /  数据可视化课程项目')
-st.title('从价格走势，到风险洞察')
-st.write('在同一个研究窗口里比较股票，用图表解释差异，用自然语言提出问题。')
+st.markdown('''<div class="brandbar"><div class="brand"><span class="brand-icon">↗</span>NASDAQ LENS<span>MARKET RESEARCH</span></div><div class="status"><i></i>历史数据工作台 · USD</div></div>
+<div class="hero"><div class="eyebrow">EXPLORE THE MARKET</div><h1>市场洞察，从这里开始</h1><p>比较走势与风险，发现数据中的关联。</p></div>''',unsafe_allow_html=True)
+page=st.radio('工作台',['市场概览','个股分析','风险聚类','智能问数','数据与口径'],horizontal=True,label_visibility='collapsed')
 demo_exists=(ROOT/'data/prices_demo.csv').exists()
 mode=st.sidebar.selectbox('数据模式',['研究数据','公开历史演示'],index=1 if demo_exists and not (ROOT/'data/prices.csv').exists() else 0)
 demo=mode=='公开历史演示'
@@ -47,7 +50,7 @@ if not universe_path.exists():
     st.info('请运行 py scripts/import_demo.py 获取公开历史示例。');st.stop()
 universe=pd.read_csv(universe_path)
 if demo:
-    st.warning('历史演示模式：Plotly公开的2015—2017年5只股票示例，含非指数样本和历史退市代码；仅用于体验功能，不是纳斯达克100研究数据。')
+    st.markdown('<div class="data-note"><strong>历史演示</strong>2015—2017年公开示例 · 5只股票，含非指数样本及历史退市代码。仅供体验，非纳斯达克100研究数据。</div>',unsafe_allow_html=True)
 if not path.exists():
     st.info('还没有本地行情。研究数据运行 py scripts/download_data.py；公开历史演示运行 py scripts/import_demo.py。系统不使用模拟行情替代真实数据。')
     st.dataframe(universe[['symbol','name','sector']],hide_index=True)
@@ -65,7 +68,6 @@ with st.sidebar:
     selected=st.multiselect('股票池',available,default=available)
     dates=st.date_input('分析区间',value=(all_data.date.min().date(),all_data.date.max().date()),
                         min_value=all_data.date.min().date(),max_value=all_data.date.max().date())
-    page=st.radio('工作台',['市场概览','个股分析','风险聚类','智能问数','数据与口径'])
     st.divider()
     st.caption('收益采用复权收盘价；K线采用原始价格。\n离线缓存运行，不提供实时行情。')
 if not selected or len(dates)!=2:
@@ -88,7 +90,7 @@ b.metric('区间收益中位数',f'{stats.total_return.median():.1%}')
 c.metric('年化波动中位数',f'{stats.annual_volatility.median():.1%}')
 d.metric('最大回撤中位数',f'{stats.max_drawdown.median():.1%}')
 if page=='市场概览':
-    st.subheader('01 / 比较表现')
+    st.subheader('市场概览')
     left,right=st.columns([2,1])
     with left:wide_line(prices/prices.iloc[0]-1,'累计收益 · 统一起点','cumulative')
     with right:chart(px.bar(stats.sort_values('total_return').reset_index(),x='total_return',y='symbol',orientation='h',title='区间收益排名'), 'ranking')
@@ -101,11 +103,11 @@ if page=='市场概览':
     wide_line((prices/prices.iloc[0]).T.groupby(stats.sector).mean().T-1,
               '行业样本等权买入持有收益 · 非官方行业指数','sector_returns')
 elif page=='个股分析':
-    st.subheader('02 / 观察一家公司')
+    st.subheader('个股行情')
     symbol=st.selectbox('个股',list(stats.index))
     part=df[df.symbol.eq(symbol)].set_index('date').sort_index()
-    fig=go.Figure(go.Candlestick(x=part.index,open=part.open,high=part.high,low=part.low,close=part.close,name=symbol))
-    fig.add_scatter(x=part.index,y=part.close.rolling(20).mean(),name='MA20',line=dict(color='#2155ED'))
+    fig=go.Figure(go.Candlestick(x=part.index,open=part.open,high=part.high,low=part.low,close=part.close,name=symbol,increasing_line_color='#2EBD85',decreasing_line_color='#F6465D'))
+    fig.add_scatter(x=part.index,y=part.close.rolling(20).mean(),name='MA20',line=dict(color='#D4A477',width=1.5))
     fig.update_layout(title=f'{symbol} 原始价格与20日均线',xaxis_rangeslider_visible=False)
     chart(fig,'candles')
     left,right=st.columns(2)
@@ -119,7 +121,7 @@ elif page=='个股分析':
     wide_line((returns[symbol].rolling(20).std()*np.sqrt(252)).to_frame(), '20日滚动年化波动','rolling')
     wide_line((prices[symbol]/prices[symbol].cummax()-1).to_frame(),'相对窗口内历史高点的回撤','drawdown')
 elif page=='风险聚类':
-    st.subheader('03 / 发现相似的风险收益特征')
+    st.subheader('风险聚类')
     st.caption('K-means使用区间收益、年化波动、最大回撤；StandardScaler标准化。属于描述性分组，不是未来走势预测。')
     if len(stats)<4:
         st.info('请至少选择4只股票以运行聚类。')
@@ -141,7 +143,7 @@ elif page=='风险聚类':
     corr=returns.corr(min_periods=20)
     chart(px.imshow(corr,zmin=-1,zmax=1,color_continuous_scale='RdBu',aspect='auto',title='日收益率相关性 · 至少20组有效观测'),'correlation')
 elif page=='智能问数':
-    st.subheader('04 / 用一句话开始分析')
+    st.subheader('向数据提问')
     st.caption('规则解析版 · 无需API密钥。支持样本股票、中文别名、明确年份/日期；不支持的问题会明确提示。未写时间时使用侧栏范围，未写股票时使用侧栏股票池。')
     year=all_data.date.max().year
     other=available[min(1,len(available)-1)]
