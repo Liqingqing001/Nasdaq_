@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.streamlit/secrets.toml
+data/prices.csv
+data/manifest.json
+data/download_errors.json
+*.log
+.cache/
+.test_tmp*/
+data/*demo*.csv
+data/demo_manifest.json
+data/*.tmp
